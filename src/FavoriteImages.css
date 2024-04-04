@@ -1,0 +1,40 @@
+.favorite-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+  }
+  
+  /* Individual favorite image */
+  .favorite-image {
+    position: relative;
+  }
+  
+  /* Favorite image thumbnail */
+  .favorite-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  
+  /* Favorite image details */
+  .favorite-image .image-details {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+  }
+  .b1 {
+    background-color: #db4071;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .b1:hover {
+    background-color: red;
+  }
