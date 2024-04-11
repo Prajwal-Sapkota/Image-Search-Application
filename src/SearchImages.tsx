@@ -10,6 +10,7 @@ const SearchImages: React.FC = () => {
   const [fullScreenImageUrl, setFullScreenImageUrl] = useState<string | null>(null);
   const observer = useRef<HTMLDivElement>(null);
 
+  // Load favorites from local storage on component mount
   useEffect(() => {
     const savedFavorites = localStorage.getItem('favorites');
     if (savedFavorites) {
@@ -17,6 +18,7 @@ const SearchImages: React.FC = () => {
     }
   }, []);
 
+  // Fetch images based on search query when query changes
   useEffect(() => {
     const fetchImages = async () => {
       try {
@@ -30,34 +32,29 @@ const SearchImages: React.FC = () => {
     if (query.trim() !== '') {
       fetchImages();
     } else {
-      setResults([]); // Clear previous results if query is empty
+      setResults([]); // Clear results when query is empty
     }
   }, [query]);
 
-  const toggleFavorite = (imageId: string) => {
-    const isFavorite = favorites.includes(imageId);
-    let updatedFavorites: string[];
-
-    if (isFavorite) {
-      // Remove imageId from favorites
-      updatedFavorites = favorites.filter((id) => id !== imageId);
-    } else {
-      // Add imageId to favorites
-      updatedFavorites = [...favorites, imageId];
-    }
-
-    setFavorites(updatedFavorites); // Update favorites state
-
-    // Update local storage with the updated favorites list
-    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
-  };
-
+  // Function to handle click on an image
   const handleImageClick = (imageUrl: string, event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (event.target instanceof HTMLElement && !event.target.closest('button')) {
       setFullScreenImageUrl(imageUrl);
     }
   };
 
+  // Function to toggle favorite status of an image
+  const toggleFavorite = (imageId: string) => {
+    const isFavorite = favorites.includes(imageId);
+    const updatedFavorites = isFavorite
+      ? favorites.filter((id) => id !== imageId)
+      : [...favorites, imageId];
+
+    setFavorites(updatedFavorites);
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+  };
+
+  // Function to close the full screen image
   const handleCloseFullScreenImage = () => {
     setFullScreenImageUrl(null);
   };
@@ -84,7 +81,6 @@ const SearchImages: React.FC = () => {
                 {favorites.includes(result.id) ? 'Remove from Favorites' : 'Add to Favorites'}
               </button>
             </div>
-            {index === results.length - 1 && <div ref={observer}></div>}
           </div>
         ))}
       </div>
