@@ -1,4 +1,5 @@
 .favorite-images {
+    margin-bottom: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-gap: 20px;
@@ -7,13 +8,16 @@
   /* Individual favorite image */
   .favorite-image {
     position: relative;
+    height: 300px; /* Set a fixed height for the favorite image container */
+    overflow: hidden; /* Hide overflow to ensure consistent size */
   }
   
   /* Favorite image thumbnail */
   .favorite-image img {
     width: 100%;
-    height: auto;
+    height: 100%;
     border-radius: 4px;
+    object-fit: cover;/* Maintain aspect ratio; crop if necessary */
   }
   
   /* Favorite image details */
@@ -25,6 +29,7 @@
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
+    box-sizing: border-box; /* Ensure padding is included in the width/height calculations */
   }
   .b1 {
     background-color: #db4071;
